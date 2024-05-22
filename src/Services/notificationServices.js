@@ -7,15 +7,17 @@ function getSocketid(userid) {
     return null;
 }
 
-function handleLike(fromUser, toUser, post, dateTime) {
+function handleLike(id, fromUser, toUser, post, dateTime, message) {
     const toSocketid = getSocketid(toUser);
     if (toSocketid) {
         return { 
             toSocketid: toSocketid,
             notification: {
+                id: id,
                 fromUser: fromUser,
                 post: post,
                 dateTime: dateTime,
+                message: message
             }
         };
     }
@@ -25,16 +27,18 @@ function handleLike(fromUser, toUser, post, dateTime) {
     }
 }
 
-function handleComment(fromUser, toUser, comment, post, dateTime) {
+function handleComment(id, fromUser, toUser, comment, post, dateTime, message) {
     const toSocketid = getSocketid(toUser);
     if (toSocketid) {
         return {
             toSocketid: toSocketid,
             notification: {
+                id: id,
                 fromUser: fromUser,
                 comment: comment,
                 post: post,
                 dateTime: dateTime,
+                message: message
             }
         };
     }
@@ -44,14 +48,16 @@ function handleComment(fromUser, toUser, comment, post, dateTime) {
     }
 }
 
-function handleFollow(fromUser, toUser, dateTime) {
+function handleFollow(id, fromUser, toUser, dateTime, message) {
     const toSocketid = getSocketid(toUser);
     if (toSocketid) {
         return {
             toSocketid: toSocketid,
             notification: {
+                id: id,
                 fromUser: fromUser,
                 dateTime: dateTime,
+                message: message
             }
         };
     }

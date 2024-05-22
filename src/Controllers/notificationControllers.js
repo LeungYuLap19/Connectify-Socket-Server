@@ -4,10 +4,13 @@ const notificationServices = require ('../Services/notificationServices');
 function handleLike(req, res) {
     const {notification} = req.body;
     const data = notificationServices.handleLike(
+        notification.id,
         notification.fromUser, 
         notification.toUser, 
         notification.post, 
-        notification.dateTime);
+        notification.dateTime,
+        notification.message,
+    );
     if (data) {
         io.to(data.toSocketid).emit('notification', data.notification);
         res.status(200).json({ message: 'Notification sent' });
@@ -19,11 +22,14 @@ function handleLike(req, res) {
 function handleComment(req, res) {
     const {notification} = req.body;
     const data = notificationServices.handleComment(
+        notification.id,
         notification.fromUser, 
         notification.toUser, 
         notification.comment, 
         notification.post, 
-        notification.dateTime);
+        notification.dateTime,
+        notification.message
+    );
     if (data) {
         io.to(data.toSocketid).emit('notification', data.notification);
         res.status(200).json({ message: 'Notification sent' });
@@ -35,9 +41,12 @@ function handleComment(req, res) {
 function handleFollow(req, res) {
     const {notification} = req.body;
     const data = notificationServices.handleFollow(
+        notification.id,
         notification.fromUser, 
         notification.toUser, 
-        notification.dateTime);
+        notification.dateTime,
+        notification.message
+    );
     if (data) {
         io.to(data.toSocketid).emit('notification', data.notification);
         res.status(200).json({ message: 'Notification sent' });
