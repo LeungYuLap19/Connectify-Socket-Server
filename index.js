@@ -1,17 +1,13 @@
 const { app, server, io } = require('./src/config/config');
 const notificationRoutes = require('./src/Routes/notificationRoutes');
-const userServices = require('./src/Services/userServices');
+const handleUserEvents = require('./src/Events/userEvents');
+const handleMessageEvents = require('./src/Events/messageEvents');
 
 app.use('/notifications', notificationRoutes);
 
 io.on('connection', (socket) => {
-    socket.on('login', (userid) => {
-        userServices.handleLogin(userid, socket.id);
-    });
-
-    socket.on('logout', (userid) => {
-        userServices.handleDisconnect(userid);
-    });
+    handleUserEvents(socket);
+    handleMessageEvents(socket);
 });
 
 server.listen(3001, () => {

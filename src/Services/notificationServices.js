@@ -1,14 +1,7 @@
 const userServices = require('../Services/userServices');
 
-function getSocketid(userid) {
-    if(userServices.onlineUsers.hasOwnProperty(userid)) {
-        return userServices.onlineUsers[userid];
-    }
-    return null;
-}
-
 function handleLike(id, fromUser, toUser, post, dateTime, message) {
-    const toSocketid = getSocketid(toUser);
+    const toSocketid = userServices.getSocketid(toUser);
     if (toSocketid) {
         return { 
             toSocketid: toSocketid,
@@ -28,7 +21,7 @@ function handleLike(id, fromUser, toUser, post, dateTime, message) {
 }
 
 function handleComment(id, fromUser, toUser, comment, post, dateTime, message) {
-    const toSocketid = getSocketid(toUser);
+    const toSocketid = userServices.getSocketid(toUser);
     if (toSocketid) {
         return {
             toSocketid: toSocketid,
@@ -49,7 +42,7 @@ function handleComment(id, fromUser, toUser, comment, post, dateTime, message) {
 }
 
 function handleFollow(id, fromUser, toUser, dateTime, message) {
-    const toSocketid = getSocketid(toUser);
+    const toSocketid = userServices.getSocketid(toUser);
     if (toSocketid) {
         return {
             toSocketid: toSocketid,

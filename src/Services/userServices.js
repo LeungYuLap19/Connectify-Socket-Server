@@ -12,8 +12,16 @@ function handleDisconnect(userid) {
     }
 }
 
+function getSocketid(userid) {
+    if(onlineUsers.hasOwnProperty(userid)) {
+        return onlineUsers[userid];
+    }
+    return null;
+}
+
 module.exports = {
     onlineUsers,
     handleLogin,
     handleDisconnect,
+    getSocketid,
 }
